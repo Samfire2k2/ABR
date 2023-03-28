@@ -73,33 +73,6 @@ def Creer_ABR_filiforme(p: int) -> ABR:
     
     return A
 
-# Fonction qui calcule le temps d'exécution de Creer_ABR_complet et Creer_ABR_filiforme pour un p donné
-def temps_execution(p):
-    start_time = time.time()
-    Creer_ABR_complet(p)
-    complete_time = time.time() - start_time
-    
-    start_time = time.time()
-    Creer_ABR_filiforme(p)
-    filamentous_time = time.time() - start_time
-    
-    return complete_time, filamentous_time
-
-# Nombre de valeurs de p à tester
-nombre_p = 10
-
-# Ouvre un fichier CSV pour écrire les temps d'exécution
-with open('temps_execution.csv', mode='w', newline='') as fichier:
-    writer = csv.writer(fichier)
-    
-    # Écrit l'en-tête du fichier CSV
-    writer.writerow(['p', 'Complet', 'Filiforme'])
-    
-    # Calcule et écrit les temps d'exécution pour chaque valeur de p
-    for p in range(1, nombre_p+1):
-        complete_time, filamentous_time = temps_execution(p)
-        writer.writerow([p, complete_time, filamentous_time])
-
 
 ##TESTS DES FONCTIONS
 arbre = ABR() # On crée un arbre binaire de recherche vide
