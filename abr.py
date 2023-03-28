@@ -2,8 +2,6 @@ import time
 import csv
 ##Algo Python - Conception et analyse d'algorithmes
 ##TP2 - ABR
-##Algo Python - Conception et analyse d'algorithmes
-##TP2 - ABR
 class ABR:
     def __init__(self, val=None, sag=None, sad=None):
         self.val = val
