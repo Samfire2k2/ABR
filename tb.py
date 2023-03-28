@@ -19,7 +19,11 @@ def Sift_Down(TB: list, i: int, n: int) -> None:
         if i+1 <= n and TB[i+1] > TB[i]:
             i += 1
 
+import time
+import random
+
 def Creer_TB(T):
+    # implementation de l'algorithme Creer-TB
     n = len(T)
     TB = [[T[i]] for i in range(n)]
     for l in range(2, n+1):
@@ -32,4 +36,47 @@ def Creer_TB(T):
                 if len(QL) < len(QR):
                     TB[i][j] = QL + QR
                 else:
-                    TB[i][j] = Q
+                    TB[i][j] = QR + QL
+    return TB[0][-1]
+
+def test_Creer_TB(T):
+    # fonction pour mesurer le temps d'exécution de la fonction Creer_TB
+    start_time = time.perf_counter()
+    Creer_TB(T)
+    end_time = time.perf_counter()
+    return end_time - start_time
+
+def generate_T_arrays(p, max_time=180):
+    # fonction pour générer un grand échantillon de tableaux T aléatoires
+    n = 2**p + 1 - 1
+    T_arrays = []
+    cumulated_time = 0
+    while cumulated_time < max_time:
+        T = [random.randint(1,n) for i in range(n)]
+        T_arrays.append(T)
+        cumulated_time += test_Creer_TB(T)
+    return T_arrays
+
+def best_worst_times(T_arrays):
+    # fonction pour calculer les temps les plus courts et les plus longs de Creer-TB
+    best_time = float('inf')
+    worst_time = 0
+    for T in T_arrays:
+        time = test_Creer_TB(T)
+        best_time = min(best_time, time)
+        worst_time = max(worst_time, time)
+    return best_time, worst_time
+
+def main():
+    # fonction principale pour générer les rapports de performance de Creer_TB
+    with open("temps_CreerTB.txt", "w") as fp:
+        for p in range(1,10):
+            T_arrays = generate_T_arrays(p)
+            best_time, worst_time = best_worst_times(T_arrays)
+            fp.write("p = {}\n".format(p))
+            fp.write("Temps au mieux : {:.5f} s\n".format(best_time))
+            fp.write("Temps au pire : {:.5f} s\n".format(worst_time))
+            fp.write("\n")
+
+if __name__ == '__main__':
+    main()
