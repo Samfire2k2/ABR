@@ -56,6 +56,15 @@ def afficherABR_A_suffixe(A: ABR):
         afficherABR_A_suffixe(A.sad)
         print(A.val)
 
+def afficherABR(A: ABR, profondeur=0):
+    if A is not None:
+        # Afficher le sous-arbre droit
+        afficherABR(A.sad, profondeur + 1)
+        # Afficher le noeud courant avec indentation
+        print('   ' * profondeur + str(A.val))
+        # Afficher le sous-arbre gauche
+        afficherABR(A.sag, profondeur + 1)
+
 def Creer_ABR_filiforme(p: int) -> ABR:
     n = 2 ** p + 1 - 1
     T = [None] * n
@@ -70,15 +79,35 @@ def Creer_ABR_filiforme(p: int) -> ABR:
         A = InsererABR(A, val)
     
     return A
-
-
+'''
+def Manipuler_ABR_complet(A: ABR, p: int) -> ABR:
+    n = 2 ** p + 1 - 1
+    A_prime = A
+    
+    for i in range(2, p + 1):
+        val_to_delete = 2 ** i - 1
+        A_prime = SupprimerABR(A_prime, val_to_delete)
+        A_prime = InsererABR(A_prime, val_to_delete)
+    
+    return A_prime
+'''
 ##TESTS DES FONCTIONS
 arbre = ABR() # On crée un arbre binaire de recherche vide
-arbre = InsererABR(arbre, 5)
 arbre = InsererABR(arbre, 8)
+arbre = InsererABR(arbre, 4)
+arbre = InsererABR(arbre, 12)
 arbre = InsererABR(arbre, 2)
-arbre = InsererABR(arbre, 7)
+arbre = InsererABR(arbre, 6)
 arbre = InsererABR(arbre, 10)
+arbre = InsererABR(arbre, 14)
+arbre = InsererABR(arbre, 1)
+arbre = InsererABR(arbre, 3)
+arbre = InsererABR(arbre, 5)
+arbre = InsererABR(arbre, 7)
+arbre = InsererABR(arbre, 9)
+arbre = InsererABR(arbre, 11)
+arbre = InsererABR(arbre, 13)
+arbre = InsererABR(arbre, 15)
 
 print("Parcours préfixe :")
 afficherABR_A_prefixe(arbre)
@@ -88,3 +117,4 @@ afficherABR_A_infixe(arbre)
 
 print("Parcours suffixe :")
 afficherABR_A_suffixe(arbre)
+afficherABR(arbre)
