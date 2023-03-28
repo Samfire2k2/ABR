@@ -19,9 +19,6 @@ def Sift_Down(TB: list, i: int, n: int) -> None:
         if i+1 <= n and TB[i+1] > TB[i]:
             i += 1
 
-import time
-import random
-
 def Creer_TB(T):
     # implementation de l'algorithme Creer-TB
     n = len(T)
