@@ -22,18 +22,21 @@ def Sift_Down(TB: list, i: int, n: int) -> None:
 def Creer_TB(T):
     # implementation de l'algorithme Creer-TB
     n = len(T)
-    TB = [[T[i]] for i in range(n)]
+    TB = [[] for i in range(n)]
+    for i in range(n):
+        TB[i].append(T[i])
     for l in range(2, n+1):
         for i in range(n-l+1):
             j = i + l - 1
-            TB[i][j] = [k for k in range(i, j+1)]
+            TB[i].append([k for k in range(i, j+1)])
             for p in range(i, j):
-                QL = TB[i][p]
-                QR = TB[p+1][j]
-                if len(QL) < len(QR):
-                    TB[i][j] = QL + QR
-                else:
-                    TB[i][j] = QR + QL
+                QL = TB[i][p-i]
+                QR = TB[p+1][j-p-1]
+                if isinstance(QL, list) and isinstance(QR, list):
+                    if len(QL) < len(QR):
+                        TB[i][j-i] += QL
+                    else:
+                        TB[i][j-i] += QR
     return TB[0][-1]
 
 def test_Creer_TB(T):
