@@ -177,7 +177,7 @@ for i in range(1, n+1):
 A_filiforme = ABR() # On crée un arbre binaire de recherche filiforme
 for i in range(1, n+1):
     InsererABR(A_filiforme, i)
-
+A_prime = Manipuler_ABR_complet(A_complet, n)
 tpsRecherche1_A = time.time()
 RechercherABR(A_complet, 1)
 tpsRecherche1_A_fin = time.time()
