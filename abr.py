@@ -79,7 +79,7 @@ def Creer_ABR_filiforme(p: int) -> ABR:
         A = InsererABR(A, val)
     
     return A
-'''
+
 def Manipuler_ABR_complet(A: ABR, p: int) -> ABR:
     n = 2 ** p + 1 - 1
     A_prime = A
@@ -90,7 +90,7 @@ def Manipuler_ABR_complet(A: ABR, p: int) -> ABR:
         A_prime = InsererABR(A_prime, val_to_delete)
     
     return A_prime
-'''
+
 ##TESTS DES FONCTIONS
 arbre = ABR() # On crée un arbre binaire de recherche vide
 arbre = InsererABR(arbre, 8)
