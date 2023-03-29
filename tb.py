@@ -27,7 +27,8 @@ def Sift_Down(TB: list, i: int, n: int) -> None:
 def Creer_TB(T):
     n = len(T)
     TB = [0] + T.copy() # on commence à 1 au lieu de 0
-    for i in range(n, 0, -1):
+    for i in range(n+1, n+11):
+        TB.append(random.randint(1, n))
         Sift_Down(TB, i, n)
     return TB[1:]
 
@@ -76,12 +77,29 @@ def test_recherche_pire(TB):
 def main():
     # fonction principale pour générer les rapports de performance de Creer_TB
     with open("temps_CreerTB.txt", "w") as fp:
-        for p in range(1,10):
+        for p in range(1, 10):
             T_arrays = generate_T_arrays(p)
             best_time, worst_time = best_worst_times(T_arrays)
-            fp.write("p = {}\n".format(p))
+            pire_temps_recherche = 0 # initialisation de la variable
+            pire_temps_total = 0
+            nb_pires_temps = 0
+            for T in T_arrays:
+                TB = Creer_TB(T)
+                pire_temps = test_recherche_pire(TB)
+                fp.write("n = {} p = {}\n".format(len(T), p))
+                fp.write("Temps construction TB : {:.5f} s\n".format(test_Creer_TB(T)))
+                fp.write("Temps recherche pire : {:.5f} s\n".format(pire_temps))
+                fp.write("\n")
+                pire_temps_total += pire_temps
+                nb_pires_temps += 1
+                if pire_temps > pire_temps_recherche:
+                    pire_temps_recherche = pire_temps
+            avg_pire_temps = pire_temps_total / nb_pires_temps
+            fp.write("n = {} p = {}\n".format(len(T_arrays[0]), p))
             fp.write("Temps au mieux : {:.5f} s\n".format(best_time))
             fp.write("Temps au pire : {:.5f} s\n".format(worst_time))
+            fp.write("Temps pire recherche : {:.5f} s\n".format(pire_temps_recherche))
+            fp.write("Temps moyen recherche pire : {:.5f} s\n".format(avg_pire_temps))
             fp.write("\n")
 
 if __name__ == '__main__':
