@@ -1,5 +1,6 @@
 import time
 import csv
+
 ##Algo Python - Conception et analyse d'algorithmes
 ##TP2 - ABR
 class ABR:
