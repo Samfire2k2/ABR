@@ -14,30 +14,22 @@ def Sift_Up(TB: list, i: int) -> None:
         
 def Sift_Down(TB: list, i: int, n: int) -> None:
     fini = False
-    while 2*i <= n and not fini:
-        i *= 2
-        if i+1 <= n and TB[i+1] > TB[i]:
-            i += 1
+    while 2 * i <= n and not fini:
+        j = 2 * i
+        if j < n and TB[j+1] > TB[j]:
+            j += 1
+        if TB[j] > TB[i]:
+            TB[i], TB[j] = TB[j], TB[i]
+            i = j
+        else:
+            fini = True
 
 def Creer_TB(T):
-    # implementation de l'algorithme Creer-TB
     n = len(T)
-    TB = [[] for i in range(n)]
-    for i in range(n):
-        TB[i].append(T[i])
-    for l in range(2, n+1):
-        for i in range(n-l+1):
-            j = i + l - 1
-            TB[i].append([k for k in range(i, j+1)])
-            for p in range(i, j):
-                QL = TB[i][p-i]
-                QR = TB[p+1][j-p-1]
-                if isinstance(QL, list) and isinstance(QR, list):
-                    if len(QL) < len(QR):
-                        TB[i][j-i] += QL
-                    else:
-                        TB[i][j-i] += QR
-    return TB[0][-1]
+    TB = [0] + T.copy() # on commence à 1 au lieu de 0
+    for i in range(n, 0, -1):
+        Sift_Down(TB, i, n)
+    return TB[1:]
 
 def test_Creer_TB(T):
     # fonction pour mesurer le temps d'exécution de la fonction Creer_TB
