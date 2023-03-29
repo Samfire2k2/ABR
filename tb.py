@@ -55,6 +55,9 @@ def generate_T_arrays(p, max_time=180):
         T = [random.randint(1,n) for i in range(n)]
         T_arrays.append(T)
         cumulated_time += test_Creer_TB(T)
+        recherche_pire_time = test_recherche_pire(Creer_TB(T))
+        with open("temps_recherche_pire_TB.txt", "a+") as fp:
+            fp.write("n = {} pire temps : {:.5f} s\n".format(n, recherche_pire_time))
     return T_arrays
 
 def best_worst_times(T_arrays):
@@ -66,6 +69,17 @@ def best_worst_times(T_arrays):
         best_time = min(best_time, time)
         worst_time = max(worst_time, time)
     return best_time, worst_time
+
+def test_recherche_pire(TB):
+    start_time = time.perf_counter()
+    n = len(TB) - 1
+    i = 1
+    while i <= n:
+        if TB[i] == 1:
+            break
+        i += 1
+    end_time = time.perf_counter()
+    return end_time - start_time
 
 def main():
     # fonction principale pour générer les rapports de performance de Creer_TB
